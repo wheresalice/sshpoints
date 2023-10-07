@@ -83,5 +83,5 @@ func SSH(redisConnection string) {
 
 	// @todo make port and key configurable
 	log.Println("starting ssh server on port 2222...")
-	log.Fatal(ssh.ListenAndServe(":2222", nil, publicKeyOption, ssh.HostKeyFile("/tmp/id_rsa")))
+	log.Fatal(ssh.ListenAndServe(":2222", nil, publicKeyOption, ssh.HostKeyFile("/etc/ssh/ssh_host_rsa_key")))
 }
