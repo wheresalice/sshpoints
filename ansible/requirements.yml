@@ -1,0 +1,11 @@
+---
+roles:
+  - name: gantsign.golang
+    scm: git
+    src: https://github.com/gantsign/ansible-role-golang.git
+  - name: davidwittman.redis
+    scm: git
+    src: https://github.com/DavidWittman/ansible-redis.git
+  - name: caddy_ansible.caddy_ansible
+    scm: git
+    src: https://github.com/caddy-ansible/caddy-ansible.git

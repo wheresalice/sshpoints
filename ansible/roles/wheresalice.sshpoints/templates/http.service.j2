@@ -1,0 +1,9 @@
+[Unit]
+Description=sshpoints ssh service
+Requires=network.target
+After=syslog.target network.target
+[Service]
+Type=simple
+ExecStart=/srv/sshpoints/sshpoints h
+[Install]
+WantedBy=multi-user.target

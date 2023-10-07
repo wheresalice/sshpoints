@@ -1,0 +1,18 @@
+---
+- hosts: sshpoints
+  roles:
+    - role: davidwittman.redis
+      redis_bind: 127.0.0.1
+      redis_version: 7.2.1
+    - role: gantsign.golang
+    - role: wheresalice.sshpoints
+    - role: caddy_ansible.caddy_ansible
+      caddy_systemd_capabilities_enabled: true
+      caddy_config: |
+        sshpoints.wheresalice.info
+        encode gzip
+        tls {
+          protocols tls1.3
+        }
+        header / Strict-Transport-Security "max-age=63072000"
+        reverse_proxy :3333

@@ -1,0 +1,40 @@
+---
+- name: update apt cache
+  apt:
+    update_cache: true
+    cache_valid_time: 86400
+- name: install dependencies
+  ansible.builtin.apt:
+    name: git
+    state: present
+
+- name: git checkout
+  ansible.builtin.git:
+    repo: https://github.com/wheresalice/sshpoints.git
+    dest: /srv/sshpoints
+
+- name: compile sshpoints
+  ansible.builtin.command:
+    chdir: /srv/sshpoints
+    cmd: /opt/go/1.21.1/bin/go build .
+    creates: /srv/sshpoints/sshpoints
+
+- name: create services
+  ansible.builtin.template:
+    src: "{{ item }}.service.j2"
+    dest: /etc/systemd/system/sshpoints-{{ item }}.service
+    mode: "0644"
+  notify:
+    - reload systemctl
+  loop:
+    - http
+    - ssh
+
+- name: start services
+  ansible.builtin.service:
+    name: sshpoints-{{ item }}.service
+    state: started
+    enabled: true
+  loop:
+    - ssh
+    - http
