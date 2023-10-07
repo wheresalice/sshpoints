@@ -63,8 +63,8 @@ func SSH(redisConnection string) {
 		s.Write([]byte(fmt.Sprintf("you have visted %d countries\n", visitedCountries)))
 
 		s.Write([]byte(fmt.Sprintf("you are visiting from %d %s\n", ip.ASNum, ip.ASName)))
-		// register countries
-		knownASN, err := rdb.SIsMember(sctx, fmt.Sprintf("%s:asn", s.User()), ip.ASNum).Result()
+		// register ASNs
+    knownASN, err := rdb.SIsMember(sctx, fmt.Sprintf("%s:asns", s.User()), ip.ASNum).Result()
 		if knownASN {
 			s.Write([]byte("sorry, this is not a new AS Number\n"))
 		} else {
