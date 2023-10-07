@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-const publicHost = "localhost"
+const publicHost = "sshpoints.wheresalice.info"
 
 var hctx = context.Background()
 
